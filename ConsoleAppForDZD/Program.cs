@@ -42,12 +42,12 @@ namespace ConsoleAppForDZD
 
             //3)Implementing SelectMany
             Person[] persons = new Person[4] {  new Person {  grade=2, subjects=new Subject[3] { new Subject { Name = "Math" }, new Subject { Name = "Calculus" }, new Subject { Name="English"} } },
-                                                new Person {  grade=2, subjects=new Subject[2] { new Subject { Name = "Math" }, new Subject { Name = "Georgian" } } },
-                                                new Person {  grade=2, subjects=new Subject[1] { new Subject { Name = "Russian" }} },
-                                                new Person {  grade=2, subjects=new Subject[2] { new Subject { Name = "Programing" }, new Subject { Name="Web"} } }};
+                                                new Person {  grade=3, subjects=new Subject[2] { new Subject { Name = "Math" }, new Subject { Name = "Georgian" } } },
+                                                new Person {  grade=4, subjects=new Subject[1] { new Subject { Name = "Russian" }} },
+                                                new Person {  grade=5, subjects=new Subject[2] { new Subject { Name = "Programing" }, new Subject { Name="Web"} } }};
 
 
-            var subjectsWithNameMoreThan4 = persons.SelectMany(p => p.subjects.Where(f => f.Name.Length > 4));
+            var subjectsWithNameMoreThan4 = persons.SelectMany(p => p.subjects.Where(f => f.Name.Length > 4).Select(f => f.Name.Length), (p, selector) => selector + ") " + p.grade);
 
             Console.ReadLine();
         }
