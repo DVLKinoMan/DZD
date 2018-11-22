@@ -248,5 +248,12 @@ namespace DZD.Linq
                 foreach (var s2 in collectionSelector(s, index++))
                     yield return resultSelector(s, s2);
         }
+
+        public static IEnumerable<TResult> SelectMany<TSource, TCollection, TResult>(this IEnumerable<TSource> source, Func<TSource, IEnumerable<TCollection>> collectionSelector, Func<TSource, TCollection, TResult> resultSelector)
+        {
+            foreach (var s in source)
+                foreach (var s2 in collectionSelector(s))
+                    yield return resultSelector(s, s2);
+        }
     }
 }
