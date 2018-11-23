@@ -255,5 +255,316 @@ namespace DZD.Linq
                 foreach (var s2 in collectionSelector(s))
                     yield return resultSelector(s, s2);
         }
+
+        public static bool Any<TSource>(this IEnumerable<TSource> source)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+
+            //Jon Skeet's version:
+            //using (IEnumerator<TSource> iterator = source.GetEnumerator())
+            //{
+            //    return iterator.MoveNext();
+            //}
+
+            return source.Count() > 0;
+        }
+
+        public static bool Any<TSource>(this IEnumerable<TSource> source, Predicate<TSource> predicate)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException("source");
+            }
+            if (predicate == null)
+                throw new ArgumentNullException("predicate");
+
+            foreach (var s in source)
+                if (predicate(s))
+                    return true;
+
+            return false;
+        }
+
+        public static bool All<TSource>(this IEnumerable<TSource> source, Predicate<TSource> predicate)
+        {
+            foreach (var s in source)
+                if (!predicate(s))
+                    return false;
+
+            return true;
+        }
+
+        public static TSource First<TSource>(this IEnumerable<TSource> source)
+        {
+            if (source == null)
+                throw new ArgumentNullException("source");
+
+            //Jon Skeet's Version
+            //using (IEnumerator<TSource> iterator = source.GetEnumerator())
+            //{
+            //    if (iterator.MoveNext())
+            //    {
+            //        return iterator.Current;
+            //    }
+            //    throw new InvalidOperationException("Sequence was empty");
+            //}
+
+            foreach (var s in source)
+                return s;
+
+            throw new InvalidOperationException();
+        }
+
+        public static TSource First<TSource>(this IEnumerable<TSource> source, Predicate<TSource> predicate)
+        {
+            if (source == null)
+                throw new ArgumentNullException("source");
+
+            if (predicate == null)
+                throw new ArgumentNullException("predicate");
+
+            foreach (var s in source)
+                if (predicate(s))
+                    return s;
+
+            throw new InvalidOperationException();
+        }
+
+        public static TSource FirstOrDefault<TSource>(this IEnumerable<TSource> source)
+        {
+            if (source == null)
+                throw new ArgumentNullException("source");
+
+            //Jon Skeet's Version
+            //using (IEnumerator<TSource> iterator = source.GetEnumerator())
+            //{
+            //    return iterator.MoveNext() ? iterator.Current : default(TSource);
+            //}
+
+            foreach (var s in source)
+                return s;
+
+            return default(TSource);
+        }
+
+        public static TSource FirstOrDefault<TSource>(this IEnumerable<TSource> source, Predicate<TSource> predicate)
+        {
+            if (source == null)
+                throw new ArgumentNullException("source");
+
+            if (predicate == null)
+                throw new ArgumentNullException("predicate");
+
+            foreach (var s in source)
+                if (predicate(s))
+                    return s;
+
+            return default(TSource);
+        }
+
+        public static TSource Single<TSource>(this IEnumerable<TSource> source)
+        {
+            if (source == null)
+                throw new ArgumentNullException("source");
+
+            using (var iterator = source.GetEnumerator())
+            {
+                if (!iterator.MoveNext())
+                    throw new InvalidOperationException("Sequence was empty");
+                TSource s = iterator.Current;
+                if (iterator.MoveNext())
+                    throw new InvalidOperationException("Sequence contained multiple elements");
+                return s;
+            }
+        }
+
+        public static TSource Single<TSource>(this IEnumerable<TSource> source, Predicate<TSource> predicate)
+        {
+            if (source == null)
+                throw new ArgumentNullException("source");
+
+            if (predicate == null)
+                throw new ArgumentNullException("predicate");
+
+            TSource result = default(TSource);
+            bool findAny = false;
+            foreach (var s in source)
+            {
+                if (predicate(s))
+                {
+                    if (findAny)
+                        throw new InvalidOperationException("Sequence contained multiple matching elements");
+                    result = s;
+                }
+            }
+            if (!findAny)
+                throw new InvalidOperationException("Sequence did not contain matching element");
+
+            return result;
+        }
+
+        public static TSource SingleOrDefault<TSource>(this IEnumerable<TSource> source)
+        {
+            if (source == null)
+                throw new ArgumentNullException("source");
+
+            using (var iterator = source.GetEnumerator())
+            {
+                if (!iterator.MoveNext())
+                    return default(TSource);
+                TSource s = iterator.Current;
+                if (iterator.MoveNext())
+                    throw new InvalidOperationException("Sequence contained multiple elements");
+                return s;
+            }
+        }
+
+        public static TSource SingleOrDefault<TSource>(this IEnumerable<TSource> source, Predicate<TSource> predicate)
+        {
+            if (source == null)
+                throw new ArgumentNullException("source");
+
+            if (predicate == null)
+                throw new ArgumentNullException("predicate");
+
+            TSource result = default(TSource);
+            bool findAny = false;
+            foreach (var s in source)
+            {
+                if (predicate(s))
+                {
+                    if (findAny)
+                        throw new InvalidOperationException("Sequence contained multiple matching elements");
+                    result = s;
+                }
+            }
+
+            return result;
+        }
+
+        public static TSource Last<TSource>(this IEnumerable<TSource> source)
+        {
+            if (source == null)
+                throw new ArgumentNullException("source");
+
+            //Jon Skeet's version
+            IList<TSource> list = source as IList<TSource>;
+            if (list != null)
+            {
+                if (list.Count == 0)
+                {
+                    throw new InvalidOperationException("Sequence was empty");
+                }
+                return list[list.Count - 1];
+            }
+
+            using (IEnumerator<TSource> iterator = source.GetEnumerator())
+            {
+                if (!iterator.MoveNext())
+                {
+                    throw new InvalidOperationException("Sequence was empty");
+                }
+                TSource last = iterator.Current;
+                while (iterator.MoveNext())
+                {
+                    last = iterator.Current;
+                }
+                return last;
+            }
+
+            //DVL Version
+            //TSource result = default(TSource);
+            //bool foundAny = false;
+            //foreach (var s in source)
+            //{
+            //    result = s;
+            //    foundAny = true;
+            //}
+
+            //if (!foundAny)
+            //    throw new InvalidOperationException("Sequence was empty");
+
+            //return result;
+        }
+
+        public static TSource Last<TSource>(this IEnumerable<TSource> source, Predicate<TSource> predicate)
+        {
+            if (source == null)
+                throw new ArgumentNullException("source");
+
+            if (predicate == null)
+                throw new ArgumentNullException("predicate");
+
+            //Testing list do not include in Jon Skeet's blog because LINQ to Object doesn't contain it
+            IList<TSource> list = source as IList<TSource>;
+            if (list != null)
+            {
+                if (list.Count == 0)
+                {
+                    throw new InvalidOperationException("Sequence was empty");
+                }
+
+                int i = 1;
+                while (i != list.Count - 1)
+                    if (predicate(list[list.Count - i]))
+                        return list[list.Count - i];
+
+                throw new InvalidOperationException("Sequence does not contains matching elements");
+            }
+
+            TSource result = default(TSource);
+            bool foundAny = false;
+            foreach (var s in source)
+                if (predicate(s))
+                {
+                    result = s;
+                    foundAny = true;
+                }
+
+            if (!foundAny)
+                throw new InvalidOperationException("Sequence does not contains matching elements");
+
+            return result;
+        }
+
+        public static TSource LastOrDefault<TSource>(this IEnumerable<TSource> source)
+        {
+            if (source == null)
+                throw new ArgumentNullException("source");
+
+            IList<TSource> list = source as IList<TSource>;
+            if (list != null)
+            {
+                return list.Count == 0 ? default(TSource) : list[list.Count - 1];
+            }
+            TSource last = default(TSource);
+            foreach (TSource item in source)
+            {
+                last = item;
+            }
+            return last;
+        }
+
+        public static TSource LastOrDefault<TSource>(this IEnumerable<TSource> source, Predicate<TSource> predicate)
+        {
+            if (source == null)
+                throw new ArgumentNullException("source");
+
+            if (predicate == null)
+                throw new ArgumentNullException("predicate");
+
+            TSource last = default(TSource);
+            foreach (TSource item in source)
+            {
+                if (predicate(item))
+                {
+                    last = item;
+                }
+            }
+            return last;
+        }
     }
 }

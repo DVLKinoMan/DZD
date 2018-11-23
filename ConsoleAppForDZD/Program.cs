@@ -41,13 +41,45 @@ namespace ConsoleAppForDZD
             //var k = arr.Count(f => f == 0);
 
             //3)Implementing SelectMany
+            //Person[] persons = new Person[4] {  new Person {  grade=2, subjects=new Subject[3] { new Subject { Name = "Math" }, new Subject { Name = "Calculus" }, new Subject { Name="English"} } },
+            //                                    new Person {  grade=3, subjects=new Subject[2] { new Subject { Name = "Math" }, new Subject { Name = "Georgian" } } },
+            //                                    new Person {  grade=4, subjects=new Subject[1] { new Subject { Name = "Russian" }} },
+            //                                    new Person {  grade=5, subjects=new Subject[2] { new Subject { Name = "Programing" }, new Subject { Name="Web"} } }};
+
+
+            //var subjectsWithNameMoreThan4 = persons.SelectMany(p => p.subjects.Where(f => f.Name.Length > 4).Select(f => f.Name.Length), (p, selector) => selector + ") " + p.grade);
+            //4) Implementing Any and All
+            //Person[] persons = new Person[4] {  new Person {  grade=2, subjects=new Subject[3] { new Subject { Name = "Math" }, new Subject { Name = "Calculus" }, new Subject { Name="English"} } },
+            //                                    new Person {  grade=3, subjects=new Subject[2] { new Subject { Name = "Math" }, new Subject { Name = "Georgian" } } },
+            //                                    new Person {  grade=4, subjects=new Subject[1] { new Subject { Name = "Russian" }} },
+            //                                    new Person {  grade=5, subjects=new Subject[2] { new Subject { Name = "Programing" }, new Subject { Name="Web"} } }};
+
+            //var anyoneIsInPerson = persons.Any();
+            //var anyoneHas5grade = persons.Any(p => p.grade == 5);
+            //var anyoneHas8Grade = persons.Any(p => p.grade == 8);
+            //var allHaveNonNegativeGrades = persons.All(p => p.grade >= 0);
+            //var allHaveMoreThan1Subjects = persons.All(p => p.subjects.Count() > 1);
+
+            //5) Implementing First, FirstOrDefault, Last, LastOrDefault, Single, SingleOrDefault
             Person[] persons = new Person[4] {  new Person {  grade=2, subjects=new Subject[3] { new Subject { Name = "Math" }, new Subject { Name = "Calculus" }, new Subject { Name="English"} } },
                                                 new Person {  grade=3, subjects=new Subject[2] { new Subject { Name = "Math" }, new Subject { Name = "Georgian" } } },
                                                 new Person {  grade=4, subjects=new Subject[1] { new Subject { Name = "Russian" }} },
                                                 new Person {  grade=5, subjects=new Subject[2] { new Subject { Name = "Programing" }, new Subject { Name="Web"} } }};
 
+            Person[] emptyPersons = new Person[0];
 
-            var subjectsWithNameMoreThan4 = persons.SelectMany(p => p.subjects.Where(f => f.Name.Length > 4).Select(f => f.Name.Length), (p, selector) => selector + ") " + p.grade);
+            //var first = persons.First();
+            //var firstOrDefault = persons.FirstOrDefault();
+            
+            //var firstWithPredicate = persons.First(p=>p.grade==4);
+            //var firstOrDefaultWithPredicate = persons.FirstOrDefault(p=>p.grade==5);
+
+            //var firstFromEmptyPersons = emptyPersons.First();
+            //var firstOrDefaultFromEmptyPersons = emptyPersons.FirstOrDefault();
+
+            //var firstWithPredicateFromEmptyPersons = emptyPersons.First(p=>p.grade==0);
+            //var firstOrDefaultWithPredicateFromEmptyPersons = emptyPersons.FirstOrDefault(p=>p.grade==0);
+
 
             Console.ReadLine();
         }
