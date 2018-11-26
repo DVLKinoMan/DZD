@@ -566,5 +566,125 @@ namespace DZD.Linq
             }
             return last;
         }
+
+        public static IEnumerable<TSource> DefaultIfEmpty<TSource>(this IEnumerable<TSource> source)
+        {
+            return source.DefaultIfEmpty(default(TSource));
+        }
+
+        public static IEnumerable<TSource> DefaultIfEmpty<TSource>(this IEnumerable<TSource> source, TSource defaultValue)
+        {
+            if (source == null)
+                throw new ArgumentNullException("source");
+
+            return source.DefaultIfEmptyImpl(defaultValue);
+        }
+
+        private static IEnumerable<TSource> DefaultIfEmptyImpl<TSource>(this IEnumerable<TSource> source, TSource defaultValue)
+        {
+            bool foundAny = false;
+            foreach (var s in source)
+            {
+                foundAny = true;
+                yield return s;
+            }
+
+            if (!foundAny)
+                yield return defaultValue;
+        }
+
+        public static TSource Aggregate<TSource>(this IEnumerable<TSource> source, Func<TSource, TSource, TSource> func)
+        {
+            if (source == null)
+                throw new ArgumentNullException("source");
+
+            if (func == null)
+                throw new ArgumentNullException("func");
+
+            using (var iterator = source.GetEnumerator())
+            {
+                if (!iterator.MoveNext())
+                    throw new InvalidOperationException("Sequence was empty");
+
+                TSource previous = iterator.Current;
+                while (iterator.MoveNext())
+                    previous = func(previous, iterator.Current);
+
+                return previous;
+            }
+        }
+
+        public static TAccumulate Aggregate<TSource, TAccumulate>(this IEnumerable<TSource> source, TAccumulate seed, Func<TAccumulate, TSource, TAccumulate> func)
+        {
+            if (source == null)
+                throw new ArgumentNullException("source");
+
+            if (seed == null)
+                throw new ArgumentNullException("seed");
+
+            if (func == null)
+                throw new ArgumentNullException("func");
+
+            using (var iterator = source.GetEnumerator())
+            {
+                if (!iterator.MoveNext())
+                    throw new InvalidOperationException("Sequence was empty");
+
+                TAccumulate current = func(seed, iterator.Current);
+                while (iterator.MoveNext())
+                    current = func(current, iterator.Current);
+
+                return current;
+            }
+        }
+
+        public static TResult Aggregate<TSource, TAccumulate, TResult>(this IEnumerable<TSource> source, TAccumulate seed, Func<TAccumulate, TSource, TAccumulate> func, Func<TAccumulate, TResult> resultSelector)
+        {
+            if (source == null)
+                throw new ArgumentNullException("source");
+
+            if (seed == null)
+                throw new ArgumentNullException("seed");
+
+            if (func == null)
+                throw new ArgumentNullException("func");
+
+            if (resultSelector == null)
+                throw new ArgumentNullException("resultSelector");
+
+            using (var iterator = source.GetEnumerator())
+            {
+                if (!iterator.MoveNext())
+                    throw new InvalidOperationException("Sequence was empty");
+
+                TAccumulate current = func(seed, iterator.Current);
+                while (iterator.MoveNext())
+                    current = func(current, iterator.Current);
+
+                return resultSelector(current);
+            }
+        }
+
+        public static IEnumerable<TSource> Distinct<TSource>(this IEnumerable<TSource> source)
+        {
+            return source.Distinct(EqualityComparer<TSource>.Default);
+        }
+
+        public static IEnumerable<TSource> Distinct<TSource>(this IEnumerable<TSource> source, IEqualityComparer<TSource> comparer)
+        {
+            if (source == null)
+                throw new ArgumentNullException("source");
+
+            return source.DistinctImpl(comparer);
+        }
+
+        public static IEnumerable<TSource> DistinctImpl<TSource>(this IEnumerable<TSource> source, IEqualityComparer<TSource> comparer)
+        {
+            HashSet<TSource> set = new HashSet<TSource>(comparer);
+
+            foreach (var s in source)
+                if (set.Add(s))
+                    yield return s;
+        }
     }
 }

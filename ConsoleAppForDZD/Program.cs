@@ -3,6 +3,8 @@
 using System.Text;
 using System.Threading.Tasks;
 using DZD.Linq;
+using System.Collections;
+using System.Collections.Generic;
 //using System.Linq;
 
 namespace ConsoleAppForDZD
@@ -61,16 +63,16 @@ namespace ConsoleAppForDZD
             //var allHaveMoreThan1Subjects = persons.All(p => p.subjects.Count() > 1);
 
             //5) Implementing First, FirstOrDefault, Last, LastOrDefault, Single, SingleOrDefault
-            Person[] persons = new Person[4] {  new Person {  grade=2, subjects=new Subject[3] { new Subject { Name = "Math" }, new Subject { Name = "Calculus" }, new Subject { Name="English"} } },
-                                                new Person {  grade=3, subjects=new Subject[2] { new Subject { Name = "Math" }, new Subject { Name = "Georgian" } } },
-                                                new Person {  grade=4, subjects=new Subject[1] { new Subject { Name = "Russian" }} },
-                                                new Person {  grade=5, subjects=new Subject[2] { new Subject { Name = "Programing" }, new Subject { Name="Web"} } }};
+            //Person[] persons = new Person[4] {  new Person {  grade=2, subjects=new Subject[3] { new Subject { Name = "Math" }, new Subject { Name = "Calculus" }, new Subject { Name="English"} } },
+            //                                    new Person {  grade=3, subjects=new Subject[2] { new Subject { Name = "Math" }, new Subject { Name = "Georgian" } } },
+            //                                    new Person {  grade=4, subjects=new Subject[1] { new Subject { Name = "Russian" }} },
+            //                                    new Person {  grade=5, subjects=new Subject[2] { new Subject { Name = "Programing" }, new Subject { Name="Web"} } }};
 
-            Person[] emptyPersons = new Person[0];
+            //Person[] emptyPersons = new Person[0];
 
             //var first = persons.First();
             //var firstOrDefault = persons.FirstOrDefault();
-            
+
             //var firstWithPredicate = persons.First(p=>p.grade==4);
             //var firstOrDefaultWithPredicate = persons.FirstOrDefault(p=>p.grade==5);
 
@@ -80,8 +82,54 @@ namespace ConsoleAppForDZD
             //var firstWithPredicateFromEmptyPersons = emptyPersons.First(p=>p.grade==0);
             //var firstOrDefaultWithPredicateFromEmptyPersons = emptyPersons.FirstOrDefault(p=>p.grade==0);
 
+            //6) Implementing DefaultIfEmtpy
+            //Person[] persons = new Person[0];
+
+            //var _persons = persons.DefaultIfEmpty();
+
+            //7) Implementing Aggregate
+            //Person[] persons = new Person[4] {  new Person {  grade=2, subjects=new Subject[3] { new Subject { Name = "Math" }, new Subject { Name = "Calculus" }, new Subject { Name="English"} } },
+            //                                    new Person {  grade=3, subjects=new Subject[2] { new Subject { Name = "Math" }, new Subject { Name = "Georgian" } } },
+            //                                    new Person {  grade=4, subjects=new Subject[1] { new Subject { Name = "Russian" }} },
+            //                                    new Person {  grade=5, subjects=new Subject[2] { new Subject { Name = "Programing" }, new Subject { Name="Web"} } }};
+            //var maxGradePerson = persons.Aggregate((x, y) =>
+            // {
+            //     if (x.grade > y.grade)
+            //         return x;
+            //     else return y;
+            // });
+
+            ////Why we need this 2 Overloads do not know
+            //var gradesSum = persons.Aggregate(0, (accumulate, y) => y.grade + accumulate);
+            //var gradesSumString = persons.Aggregate(0, (accumulate, y) => y.grade + accumulate, sumofGrades => "This is Some of Grades: " + sumofGrades.ToString());
+
+            //8) Implementing Distinct
+            int[] ints = new int[5] { 1, 1, 3, 2, 4 };
+            Person[] persons = new Person[4] {  new Person {  grade=2, subjects=new Subject[3] { new Subject { Name = "Math" }, new Subject { Name = "Calculus" }, new Subject { Name="English"} } },
+                                                new Person {  grade=2, subjects=new Subject[2] { new Subject { Name = "Math" }, new Subject { Name = "Georgian" } } },
+                                                new Person {  grade=1, subjects=new Subject[1] { new Subject { Name = "Russian" }} },
+                                                new Person {  grade=5, subjects=new Subject[2] { new Subject { Name = "Programing" }, new Subject { Name="Web"} } }};
+
+            var distinctInts = ints.Distinct();
+            PersonsComparer comp = new PersonsComparer();
+            var distinctPersonsWithGrades = persons.Distinct(comp);
 
             Console.ReadLine();
+        }
+
+        class PersonsComparer : IEqualityComparer<Person>
+        {
+            public bool Equals(Person x, Person y)
+            {
+                if (x.grade == y.grade)
+                    return true;
+                return false;
+            }
+
+            public int GetHashCode(Person obj)
+            {
+                return obj.grade.GetHashCode();
+            }
         }
     }
 }
