@@ -137,16 +137,26 @@ namespace ConsoleAppForDZD
             //var personsIntersect = persons1.Intersect(persons2, perComparer);
 
             //11) Implementing Except
-            //10) Implementing Intersect
-            Person[] persons1 = new Person[3] {  new Person {  grade=2, subjects=new Subject[3] { new Subject { Name = "Math" }, new Subject { Name = "Calculus" }, new Subject { Name="English"} } },
+            //Person[] persons1 = new Person[3] {  new Person {  grade=2, subjects=new Subject[3] { new Subject { Name = "Math" }, new Subject { Name = "Calculus" }, new Subject { Name="English"} } },
+            //                                    new Person {  grade=2, subjects=new Subject[3] { new Subject { Name = "Math" }, new Subject { Name = "Calculus" }, new Subject { Name="English"} } },
+            //                                    new Person {  grade=5, subjects=new Subject[2] { new Subject { Name = "Programing" }, new Subject { Name="ff"} } }};
+
+            //Person[] persons2 = new Person[2] { new Person {  grade=1, subjects=new Subject[1] { new Subject { Name = "Russian" }} },
+            //                                    new Person {  grade=5, subjects=new Subject[2] { new Subject { Name = "Programing" }, new Subject { Name="Web"} } }};
+
+            //PersonsComparer perComparer = new PersonsComparer();
+            //var personsExcept = persons1.Except(persons2, perComparer);
+
+            //12) Implementing ToLookup
+            Person[] persons = new Person[5] {  new Person {  grade=2, subjects=new Subject[3] { new Subject { Name = "Math" }, new Subject { Name = "Calculus" }, new Subject { Name="English"} } },
                                                 new Person {  grade=2, subjects=new Subject[3] { new Subject { Name = "Math" }, new Subject { Name = "Calculus" }, new Subject { Name="English"} } },
+                                                new Person {  grade=1, subjects=new Subject[1] { new Subject { Name = "Russian" }} },
+                                                new Person {  grade=5, subjects=new Subject[2] { new Subject { Name = "Programing" }, new Subject { Name="Web"} } },
                                                 new Person {  grade=5, subjects=new Subject[2] { new Subject { Name = "Programing" }, new Subject { Name="ff"} } }};
 
-            Person[] persons2 = new Person[2] { new Person {  grade=1, subjects=new Subject[1] { new Subject { Name = "Russian" }} },
-                                                new Person {  grade=5, subjects=new Subject[2] { new Subject { Name = "Programing" }, new Subject { Name="Web"} } }};
-
             PersonsComparer perComparer = new PersonsComparer();
-            var personsExcept = persons1.Except(persons2, perComparer);
+            //Doesn't implement clearly. It must handle keys with null
+            var personsLookup1 = persons.ToLookup(p => p.grade);
 
             Console.ReadLine();
         }

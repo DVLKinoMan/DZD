@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DZD.Linq
 {
-    public static partial class Enumarable
+    public static partial class Enumerable
     {
         public static IEnumerable<TDZD> Where<TDZD>(this IEnumerable<TDZD> list, Func<TDZD, bool> func)
         {
@@ -764,9 +764,10 @@ namespace DZD.Linq
             HashSet<TSource> set = new HashSet<TSource>(second, comparer);
 
             foreach (var f in first)
-                //if (!set.Remove(f)) //It will not return distinct from first
+                //if (!set.Remove(f)) //It will not return distinct values from first
                 if (set.Add(f))
                     yield return f;
         }
     }
+
 }
