@@ -104,15 +104,49 @@ namespace ConsoleAppForDZD
             //var gradesSumString = persons.Aggregate(0, (accumulate, y) => y.grade + accumulate, sumofGrades => "This is Some of Grades: " + sumofGrades.ToString());
 
             //8) Implementing Distinct
-            int[] ints = new int[5] { 1, 1, 3, 2, 4 };
-            Person[] persons = new Person[4] {  new Person {  grade=2, subjects=new Subject[3] { new Subject { Name = "Math" }, new Subject { Name = "Calculus" }, new Subject { Name="English"} } },
-                                                new Person {  grade=2, subjects=new Subject[2] { new Subject { Name = "Math" }, new Subject { Name = "Georgian" } } },
-                                                new Person {  grade=1, subjects=new Subject[1] { new Subject { Name = "Russian" }} },
+            //int[] ints = new int[5] { 1, 1, 3, 2, 4 };
+            //Person[] persons = new Person[4] {  new Person {  grade=2, subjects=new Subject[3] { new Subject { Name = "Math" }, new Subject { Name = "Calculus" }, new Subject { Name="English"} } },
+            //                                    new Person {  grade=2, subjects=new Subject[2] { new Subject { Name = "Math" }, new Subject { Name = "Georgian" } } },
+            //                                    new Person {  grade=1, subjects=new Subject[1] { new Subject { Name = "Russian" }} },
+            //                                    new Person {  grade=5, subjects=new Subject[2] { new Subject { Name = "Programing" }, new Subject { Name="Web"} } }};
+
+            //var distinctInts = ints.Distinct();
+            //PersonsComparer comp = new PersonsComparer();
+            //var distinctPersonsWithGrades = persons.Distinct(comp);
+
+            //9) Implementing Union
+            //Person[] persons1 = new Person[2] {  new Person {  grade=2, subjects=new Subject[3] { new Subject { Name = "Math" }, new Subject { Name = "Calculus" }, new Subject { Name="English"} } },
+            //                                    new Person {  grade=5, subjects=new Subject[2] { new Subject { Name = "Programing" }, new Subject { Name="Web"} } }};
+
+            //Person[] persons2 = new Person[2] { new Person {  grade=1, subjects=new Subject[1] { new Subject { Name = "Russian" }} },
+            //                                    new Person {  grade=5, subjects=new Subject[2] { new Subject { Name = "Programing" }, new Subject { Name="Web"} } }};
+
+            //var personUnions = persons1.Union(persons2);
+
+            //PersonsComparer personComparer = new PersonsComparer();
+            //var personUnionsWithComparer = persons1.Union(persons2, personComparer);
+
+            //10) Implementing Intersect
+            //Person[] persons1 = new Person[2] {  new Person {  grade=2, subjects=new Subject[3] { new Subject { Name = "Math" }, new Subject { Name = "Calculus" }, new Subject { Name="English"} } },
+            //                                    new Person {  grade=5, subjects=new Subject[2] { new Subject { Name = "Programing" }, new Subject { Name="ff"} } }};
+
+            //Person[] persons2 = new Person[2] { new Person {  grade=1, subjects=new Subject[1] { new Subject { Name = "Russian" }} },
+            //                                    new Person {  grade=5, subjects=new Subject[2] { new Subject { Name = "Programing" }, new Subject { Name="Web"} } }};
+
+            //PersonsComparer perComparer = new PersonsComparer();
+            //var personsIntersect = persons1.Intersect(persons2, perComparer);
+
+            //11) Implementing Except
+            //10) Implementing Intersect
+            Person[] persons1 = new Person[3] {  new Person {  grade=2, subjects=new Subject[3] { new Subject { Name = "Math" }, new Subject { Name = "Calculus" }, new Subject { Name="English"} } },
+                                                new Person {  grade=2, subjects=new Subject[3] { new Subject { Name = "Math" }, new Subject { Name = "Calculus" }, new Subject { Name="English"} } },
+                                                new Person {  grade=5, subjects=new Subject[2] { new Subject { Name = "Programing" }, new Subject { Name="ff"} } }};
+
+            Person[] persons2 = new Person[2] { new Person {  grade=1, subjects=new Subject[1] { new Subject { Name = "Russian" }} },
                                                 new Person {  grade=5, subjects=new Subject[2] { new Subject { Name = "Programing" }, new Subject { Name="Web"} } }};
 
-            var distinctInts = ints.Distinct();
-            PersonsComparer comp = new PersonsComparer();
-            var distinctPersonsWithGrades = persons.Distinct(comp);
+            PersonsComparer perComparer = new PersonsComparer();
+            var personsExcept = persons1.Except(persons2, perComparer);
 
             Console.ReadLine();
         }

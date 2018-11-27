@@ -675,7 +675,7 @@ namespace DZD.Linq
             if (source == null)
                 throw new ArgumentNullException("source");
 
-            return source.DistinctImpl(comparer);
+            return source.DistinctImpl(comparer ?? EqualityComparer<TSource>.Default);
         }
 
         public static IEnumerable<TSource> DistinctImpl<TSource>(this IEnumerable<TSource> source, IEqualityComparer<TSource> comparer)
@@ -685,6 +685,88 @@ namespace DZD.Linq
             foreach (var s in source)
                 if (set.Add(s))
                     yield return s;
+        }
+
+        public static IEnumerable<TSource> Union<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second)
+        {
+            return first.Union(second, EqualityComparer<TSource>.Default);
+        }
+
+        public static IEnumerable<TSource> Union<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second, IEqualityComparer<TSource> comparer)
+        {
+            if (first == null)
+                throw new ArgumentNullException("first");
+
+            if (second == null)
+                throw new ArgumentNullException("second");
+
+            return first.UnionImpl(second, comparer ?? EqualityComparer<TSource>.Default);
+            //Jon Skeet said that you can do this too:
+            //return first.Concat(second).Distinct(comparer ?? EqualityComparer<TSource>.Default);
+        }
+
+        private static IEnumerable<TSource> UnionImpl<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second, IEqualityComparer<TSource> comparer)
+        {
+            HashSet<TSource> set = new HashSet<TSource>(comparer);
+
+            foreach (var f in first)
+                if (set.Add(f))
+                    yield return f;
+
+            foreach (var s in second)
+                if (set.Add(s))
+                    yield return s;
+        }
+
+        public static IEnumerable<TSource> Intersect<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second)
+        {
+            return first.Intersect(second, EqualityComparer<TSource>.Default);
+        }
+
+        public static IEnumerable<TSource> Intersect<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second, IEqualityComparer<TSource> comparer)
+        {
+            if (first == null)
+                throw new ArgumentNullException("first");
+
+            if (second == null)
+                throw new ArgumentNullException("second");
+
+            return IntersectImpl(first, second, comparer);
+        }
+
+        private static IEnumerable<TSource> IntersectImpl<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second, IEqualityComparer<TSource> comparer)
+        {
+            HashSet<TSource> set = new HashSet<TSource>(second, comparer);
+
+            foreach (var f in first)
+                if (set.Remove(f))
+                    yield return f;
+        }
+
+        public static IEnumerable<TSource> Except<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second)
+        {
+            return first.Except(second, EqualityComparer<TSource>.Default);
+        }
+
+        public static IEnumerable<TSource> Except<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second, IEqualityComparer<TSource> comparer)
+        {
+            if (first == null)
+                throw new ArgumentNullException("first");
+
+            if (second == null)
+                throw new ArgumentNullException("second");
+
+            return ExceptImpl(first, second, comparer);
+        }
+
+        private static IEnumerable<TSource> ExceptImpl<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second, IEqualityComparer<TSource> comparer)
+        {
+            HashSet<TSource> set = new HashSet<TSource>(second, comparer);
+
+            foreach (var f in first)
+                //if (!set.Remove(f)) //It will not return distinct from first
+                if (set.Add(f))
+                    yield return f;
         }
     }
 }
