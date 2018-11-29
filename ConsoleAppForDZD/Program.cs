@@ -148,15 +148,25 @@ namespace ConsoleAppForDZD
             //var personsExcept = persons1.Except(persons2, perComparer);
 
             //12) Implementing ToLookup
-            Person[] persons = new Person[5] {  new Person {  grade=2, subjects=new Subject[3] { new Subject { Name = "Math" }, new Subject { Name = "Calculus" }, new Subject { Name="English"} } },
-                                                new Person {  grade=2, subjects=new Subject[3] { new Subject { Name = "Math" }, new Subject { Name = "Calculus" }, new Subject { Name="English"} } },
-                                                new Person {  grade=1, subjects=new Subject[1] { new Subject { Name = "Russian" }} },
-                                                new Person {  grade=5, subjects=new Subject[2] { new Subject { Name = "Programing" }, new Subject { Name="Web"} } },
-                                                new Person {  grade=5, subjects=new Subject[2] { new Subject { Name = "Programing" }, new Subject { Name="ff"} } }};
+            //Person[] persons = new Person[5] {  new Person {  grade=2, subjects=new Subject[3] { new Subject { Name = "Math" }, new Subject { Name = "Calculus" }, new Subject { Name="English"} } },
+            //                                    new Person {  grade=2, subjects=new Subject[3] { new Subject { Name = "Math" }, new Subject { Name = "Calculus" }, new Subject { Name="English"} } },
+            //                                    new Person {  grade=1, subjects=new Subject[1] { new Subject { Name = "Russian" }} },
+            //                                    new Person {  grade=5, subjects=new Subject[2] { new Subject { Name = "Programing" }, new Subject { Name="Web"} } },
+            //                                    new Person {  grade=5, subjects=new Subject[2] { new Subject { Name = "Programing" }, new Subject { Name="ff"} } }};
+
+            //PersonsComparer perComparer = new PersonsComparer();
+            ////Doesn't implement clearly. It must handle keys with null
+            //var personsLookup1 = persons.ToLookup(p => p.grade);
+
+            //13) Implementing Join
+            Person[] persons1 = new Person[2] {  new Person {  grade=1, subjects=new Subject[1] { new Subject { Name = "Math" } } },
+                                                new Person {  grade=2, subjects=new Subject[3] { new Subject { Name = "Math" }, new Subject { Name = "Calculus" }, new Subject { Name="English"} } }};
+
+            Person[] persons2 = new Person[2] {  new Person {  grade=1, subjects=new Subject[1] { new Subject { Name = "Math2" } } },
+                                                new Person {  grade=3, subjects=new Subject[3] { new Subject { Name = "Math4" }, new Subject { Name = "Calculus4" }, new Subject { Name="English4"} } }};
 
             PersonsComparer perComparer = new PersonsComparer();
-            //Doesn't implement clearly. It must handle keys with null
-            var personsLookup1 = persons.ToLookup(p => p.grade);
+            var joined = persons1.Join(persons2, p => p.grade, p => p.grade, (p1, p2) => new { p1, p2 });
 
             Console.ReadLine();
         }
