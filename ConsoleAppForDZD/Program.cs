@@ -159,14 +159,58 @@ namespace ConsoleAppForDZD
             //var personsLookup1 = persons.ToLookup(p => p.grade);
 
             //13) Implementing Join
-            Person[] persons1 = new Person[2] {  new Person {  grade=1, subjects=new Subject[1] { new Subject { Name = "Math" } } },
-                                                new Person {  grade=2, subjects=new Subject[3] { new Subject { Name = "Math" }, new Subject { Name = "Calculus" }, new Subject { Name="English"} } }};
+            //Person[] persons1 = new Person[2] {  new Person {  grade=1, subjects=new Subject[1] { new Subject { Name = "Math" } } },
+            //                                    new Person {  grade=2, subjects=new Subject[3] { new Subject { Name = "Math" }, new Subject { Name = "Calculus" }, new Subject { Name="English"} } }};
 
-            Person[] persons2 = new Person[2] {  new Person {  grade=1, subjects=new Subject[1] { new Subject { Name = "Math2" } } },
-                                                new Person {  grade=3, subjects=new Subject[3] { new Subject { Name = "Math4" }, new Subject { Name = "Calculus4" }, new Subject { Name="English4"} } }};
+            //Person[] persons2 = new Person[2] {  new Person {  grade=1, subjects=new Subject[1] { new Subject { Name = "Math2" } } },
+            //                                    new Person {  grade=3, subjects=new Subject[3] { new Subject { Name = "Math4" }, new Subject { Name = "Calculus4" }, new Subject { Name="English4"} } }};
 
-            PersonsComparer perComparer = new PersonsComparer();
-            var joined = persons1.Join(persons2, p => p.grade, p => p.grade, (p1, p2) => new { p1, p2 });
+            //PersonsComparer perComparer = new PersonsComparer();
+            //var joined = persons1.Join(persons2, p => p.grade, p => p.grade, (p1, p2) => new { p1, p2 });
+
+            //14) Implementing GroupJoin
+            //string[] outer = { "first", "second", "third" };
+            //string[] inner = { "essence", "offer", "eating", "psalm" };
+
+            //var query = outer.GroupJoin(inner,
+            //                       outerElement => outerElement[0],
+            //                       innerElement => innerElement[1],
+            //                       (outerElement, innerElements) => outerElement + ":" + string.Join(";", innerElements));
+
+            //Left Join (Does not implemented. It is already there
+
+            //This is not left join:
+            //int[] outer = { 5, 3, 4, 7 };
+            //string[] inner = { "bee", "giraffe", "tiger", "badger", "ox", "cat", "dog" };
+            //var query = from x in outer
+            //            join y in inner on x equals y.Length into matches
+            //            select x + ":" + string.Join(";", matches);
+
+            //This is left join
+            //int[] outer = { 5, 3, 4, 7 };
+            //string[] inner = { "bee", "giraffe", "tiger", "badger", "ox", "cat", "dog" };
+            //var query = from x in outer
+            //            join y in inner on x equals y.Length into matches
+            //            from z in matches.DefaultIfEmpty("null")
+            //            select x + ":" + z;
+
+            //var queryToList = query.ToList();
+
+            //15) Implementing Take:
+            //int[] arr = { 5, 3, 4, 7 };
+            //var takedArr = arr.Take(2).ToList();
+
+            //16) Implementing TakeWhile:
+            //int[] arr = { 5, 3, 4, 7 };
+            //var takedArr = arr.TakeWhile((a, i) => i < 2).ToList();
+
+            //17) Implementing Skip
+            //int[] arr = { 5, 3, 4, 7 };
+            //var takedArr = arr.Skip(2).ToList();
+
+            //17) Implementing SkipWhile
+            int[] arr = { 5, 3, 4, 7 };
+            var takedArr = arr.SkipWhile((a, i) => i == 0).ToList();
 
             Console.ReadLine();
         }

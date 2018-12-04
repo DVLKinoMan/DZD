@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DZD.Linq</RootNamespace>
     <AssemblyName>DZD.Linq</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
@@ -49,6 +49,7 @@
     <Compile Include="Enumerable.cs" />
     <Compile Include="GroupBy.cs" />
     <Compile Include="Grouping.cs" />
+    <Compile Include="GroupJoin.cs" />
     <Compile Include="IGrouping.cs" />
     <Compile Include="ILookup.cs" />
     <Compile Include="Join.cs" />
@@ -59,6 +60,10 @@
     <Compile Include="Range.cs" />
     <Compile Include="Repeat.cs" />
     <Compile Include="Select.cs" />
+    <Compile Include="Skip.cs" />
+    <Compile Include="SkipWhile.cs" />
+    <Compile Include="Take.cs" />
+    <Compile Include="TakeWhile.cs" />
     <Compile Include="ToList.cs" />
     <Compile Include="ToLookup.cs" />
     <Compile Include="Where.cs" />
