@@ -209,8 +209,12 @@ namespace ConsoleAppForDZD
             //var takedArr = arr.Skip(2).ToList();
 
             //17) Implementing SkipWhile
+            //int[] arr = { 5, 3, 4, 7 };
+            //var takedArr = arr.SkipWhile((a, i) => i == 0).ToList();
+
+            //18) Implementing ToDictionary
             int[] arr = { 5, 3, 4, 7 };
-            var takedArr = arr.SkipWhile((a, i) => i == 0).ToList();
+            var dictionary = arr.ToDictionary(r => r);
 
             Console.ReadLine();
         }
