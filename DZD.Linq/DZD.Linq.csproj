@@ -47,6 +47,7 @@
     <Compile Include="Aggregate.cs" />
     <Compile Include="All.cs" />
     <Compile Include="Any.cs" />
+    <Compile Include="CompositeKey.cs" />
     <Compile Include="CompoundComparer.cs" />
     <Compile Include="Concat.cs" />
     <Compile Include="Count.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Range.cs" />
     <Compile Include="Repeat.cs" />
+    <Compile Include="Reverse.cs" />
     <Compile Include="ReverseComparer.cs" />
     <Compile Include="Select.cs" />
     <Compile Include="SelectMany.cs" />

@@ -214,7 +214,9 @@ namespace ConsoleAppForDZD
 
             //18) Implementing ToDictionary
             int[] arr = { 5, 3, 4, 7 };
-            var dictionary = arr.ToDictionary(r => r);
+            var dictionary = arr.OrderBy(r => r);
+            foreach (var d in dictionary)
+                Console.WriteLine(d);
 
             Console.ReadLine();
         }
