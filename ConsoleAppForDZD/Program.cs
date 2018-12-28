@@ -228,8 +228,16 @@ namespace ConsoleAppForDZD
             //var sumOfArr = arr.Sum();
 
             //21) Implementing Max
+            //int[] arr = { 5, 3, 4, 7 };
+            //var max = arr.Max();
+
+            //22) Impelementing Average
+            //int[] arr = { 5, 3, 4, 7 };
+            //var average = arr.Average();
+
+            //23) Implementing ElementAt
             int[] arr = { 5, 3, 4, 7 };
-            var max = arr.Max();
+            var at2 = arr.ElementAt(2);
 
             Console.ReadLine();
         }
