@@ -213,10 +213,23 @@ namespace ConsoleAppForDZD
             //var takedArr = arr.SkipWhile((a, i) => i == 0).ToList();
 
             //18) Implementing ToDictionary
+            //int[] arr = { 5, 3, 4, 7 };
+            //var dictionary = arr.OrderBy(r => r);
+            //foreach (var d in dictionary)
+            //    Console.WriteLine(d);
+
+            //19) Implementing Reverse
+            //int[] arr = { 5, 3, 4, 7 };
+            //var reversedArray = arr.Reverse();
+
+            //20) Implementing Sum
+            //int k = int.MaxValue;
+            //int[] arr = { 5, 999999999, 999999999, 700000000 };
+            //var sumOfArr = arr.Sum();
+
+            //21) Implementing Max
             int[] arr = { 5, 3, 4, 7 };
-            var dictionary = arr.OrderBy(r => r);
-            foreach (var d in dictionary)
-                Console.WriteLine(d);
+            var max = arr.Max();
 
             Console.ReadLine();
         }

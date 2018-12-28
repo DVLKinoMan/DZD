@@ -69,6 +69,8 @@
     <Compile Include="LastOrDefault.cs" />
     <Compile Include="LongCount.cs" />
     <Compile Include="Lookup.cs" />
+    <Compile Include="Max.cs" />
+    <Compile Include="Min.cs" />
     <Compile Include="NullKeyFriendlyDictionary.cs" />
     <Compile Include="OrderBy.cs" />
     <Compile Include="OrderByDescending.cs" />
@@ -85,6 +87,7 @@
     <Compile Include="SingleOrDefault.cs" />
     <Compile Include="Skip.cs" />
     <Compile Include="SkipWhile.cs" />
+    <Compile Include="Sum.cs" />
     <Compile Include="Take.cs" />
     <Compile Include="TakeWhile.cs" />
     <Compile Include="ThenBy.cs" />
