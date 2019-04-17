@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using DZD.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+
 //using System.Linq;
 
 namespace ConsoleAppForDZD
@@ -236,8 +238,15 @@ namespace ConsoleAppForDZD
             //var average = arr.Average();
 
             //23) Implementing ElementAt
-            int[] arr = { 5, 3, 4, 7 };
-            var at2 = arr.ElementAt(2);
+            //int[] arr = { 5, 3, 4, 7 };
+            //var at2 = arr.ElementAt(2);
+
+            //24) How Works OrderBy
+            string[] arr = { "dato", "ilia", "giorgi", "lasha", "erekle", "nino" };
+            foreach (var s in arr.OrderBy(str=>str.Length))
+            {
+                Console.WriteLine($"{s}{s.Length}");
+            }
 
             Console.ReadLine();
         }
