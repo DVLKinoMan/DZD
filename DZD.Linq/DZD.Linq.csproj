@@ -47,7 +47,9 @@
     <Compile Include="Aggregate.cs" />
     <Compile Include="All.cs" />
     <Compile Include="Any.cs" />
+    <Compile Include="AsEnumerable.cs" />
     <Compile Include="Average.cs" />
+    <Compile Include="Cast.cs" />
     <Compile Include="CompositeKey.cs" />
     <Compile Include="CompoundComparer.cs" />
     <Compile Include="Concat.cs" />
@@ -75,6 +77,7 @@
     <Compile Include="Max.cs" />
     <Compile Include="Min.cs" />
     <Compile Include="NullKeyFriendlyDictionary.cs" />
+    <Compile Include="OfType.cs" />
     <Compile Include="OrderBy.cs" />
     <Compile Include="OrderByDescending.cs" />
     <Compile Include="OrderedEnumerable.cs" />
@@ -86,6 +89,7 @@
     <Compile Include="ReverseComparer.cs" />
     <Compile Include="Select.cs" />
     <Compile Include="SelectMany.cs" />
+    <Compile Include="SequenceEqual.cs" />
     <Compile Include="Single.cs" />
     <Compile Include="SingleOrDefault.cs" />
     <Compile Include="Skip.cs" />
@@ -102,6 +106,7 @@
     <Compile Include="ToLookup.cs" />
     <Compile Include="Union.cs" />
     <Compile Include="Where.cs" />
+    <Compile Include="Zip.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
